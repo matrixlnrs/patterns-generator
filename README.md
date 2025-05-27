@@ -1,1 +1,20 @@
-Test pull pour vérifier que tout fonctionne
+# Geometric Pattern Generator
+
+This project is due on the 30th of June and is worth 5 ECTS. 
+It replaces one of our courses as part of our 4th-semester mobility program.
+
+Objective: Build an ****interactive web application** that generates **geometric patterns**** based on parameters entered by the user.
+
+## Key Features
+- Pattern generation using **Turtle graphics**
+- Web interface built with **Flask**
+- Input fiels for:
+    - Number of sides
+    - Initial size of the shape
+    - Number of repetitions
+    - Rotation angle
+    - Pattern color
+- Display of the result as a generated PNG image
+- Responsive design
+
+I've decided to do this project exclusively in English, as it is during our semester abroad. 
