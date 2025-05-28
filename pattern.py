@@ -1,17 +1,20 @@
 import turtle
+from PIL import Image
+import os
 
-# Ask user for pattern type
-pattern = int(input("What pattern do you want to draw?\n 1. Polygon \n 2. Circle \n 3. Spiral \n"))
-
-# Number of sides for polygon
-nb_sides = 0
-if pattern == 1:
-    nb_sides = int(input("How many sides do you want for the polygon? \n"))
-
+# Ask for parameters
+nb_sides = int(input("How many sides do you want?\n(Use 0 for a spiral)\n"))
 nb_reps = int(input("How many repetitions do you want? \n"))
-size = int(input("What size do you want the pattern to be? \n"))
+size = int(input("What size do you want the pattern to be?\n 1. Small \n 2. Medium \n 3. Large \n"))
+# User choice to actual size values
+size_map = {
+    1: 50,
+    2: 125,
+    3: 200
+}
+size = size_map.get(size, 50)
 rot = int(input("What rotation angle do you want? \n"))
-color = input("What color do you want? (e.g. red, blue, black...) \n")
+color = input("What color do you want? (red, blue, black...) \n")
 
 # Setup turtle
 t = turtle.Turtle()
@@ -25,12 +28,6 @@ def draw_polygon(size, sides):
         t.forward(size)
         t.left(angle)
 
-# Circle pattern
-def draw_circles(size, repetitions, angle):
-    for _ in range(repetitions):
-        t.circle(size)
-        t.left(angle)
-
 # Spiral pattern
 def draw_spiral(size, repetitions, angle, increment):
     length = size
@@ -40,15 +37,25 @@ def draw_spiral(size, repetitions, angle, increment):
         length += increment
 
 # Main drawing
-if pattern == 1:
+if nb_sides == 0:
+    draw_spiral(size, nb_reps, rot, increment=5)
+else:
     for _ in range(nb_reps):
         draw_polygon(size, nb_sides)
         t.left(rot)
-elif pattern == 2:
-    draw_circles(size, nb_reps, rot)
-elif pattern == 3:
-    draw_spiral(size, nb_reps, rot, increment=5)
-else:
-    print("Invalid pattern choice.")
 
+# Save image as EPS
+canvas = turtle.getcanvas()
+canvas.postscript(file="pattern.eps")
+
+# Convert EPS to PNG
+img = Image.open("pattern.eps")
+img.save("pattern.png", "PNG")
+
+print("Pattern saved as 'pattern.png'")
+
+# Delete the EPS file to keep only the PNG
+os.remove("pattern.eps")
+
+# Keep the turtle window open
 turtle.done()
