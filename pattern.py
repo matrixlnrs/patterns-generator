@@ -1,34 +1,41 @@
 import turtle
 from PIL import Image
 import os
+import sys  # To receive arguments from the command line
 
 # Ask for parameters
-nb_sides = int(input("How many sides do you want?\n(Use 0 for a spiral)\n"))
-nb_reps = int(input("How many repetitions do you want? \n"))
-size = int(input("What size do you want the pattern to be?\n 1. Small \n 2. Medium \n 3. Large \n"))
-# User choice to actual size values
-size_map = {
-    1: 50,
-    2: 125,
-    3: 200
-}
-size = size_map.get(size, 50)
-rot = int(input("What rotation angle do you want? \n"))
-color = input("What color do you want? (red, blue, black...) \n")
+nb_sides = int(sys.argv[1])
+nb_reps = int(sys.argv[2])
+size_input = int(sys.argv[3])
+rot = int(sys.argv[4])
+color = sys.argv[5]
+
+# Convert size into pixels
+if size_input == 1:
+    size = 50
+elif size_input == 2:
+    size = 125
+elif size_input == 3:
+    size = 200
+else:
+    size = 100
 
 # Setup turtle
 t = turtle.Turtle()
+t.hideturtle()
 t.color(color)
 t.speed(0)
+screen = turtle.Screen()
+screen.bgcolor("white")
 
-# Polygon pattern
+# Polygon pattern drawing
 def draw_polygon(size, sides):
     angle = 360 / sides
     for _ in range(sides):
         t.forward(size)
         t.left(angle)
 
-# Spiral pattern
+# Spiral pattern drawing
 def draw_spiral(size, repetitions, angle, increment):
     length = size
     for _ in range(repetitions):
@@ -47,15 +54,9 @@ else:
 # Save image as EPS
 canvas = turtle.getcanvas()
 canvas.postscript(file="pattern.eps")
+turtle.bye()
 
 # Convert EPS to PNG
 img = Image.open("pattern.eps")
-img.save("pattern.png", "PNG")
-
-print("Pattern saved as 'pattern.png'")
-
-# Delete the EPS file to keep only the PNG
-os.remove("pattern.eps")
-
-# Keep the turtle window open
-turtle.done()
+img.save("static/pattern.png", "PNG")
+os.remove("pattern.eps")    # Delete the EPS file to keep only the PNG
