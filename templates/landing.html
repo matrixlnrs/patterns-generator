@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pattern Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='painting.png') }}" class="corner-img" alt="Painting">
+    <div class="container">
+        <h1 class="line build">BUILD</h1>
+        <h1 class="line your">YOUR</h1>
+        <h1 class="line pattern">PATTERN</h1>
+        <a href="{{ url_for('index') }}" class="circle-button">
+            <span>TRY<br>HERE</span>
+        </a>
+    </div>
+</body>
+</html>
