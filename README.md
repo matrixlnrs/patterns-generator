@@ -19,14 +19,13 @@ Objective: Build an **interactive web application** that generates **geometric p
 
 ## To run the pattern generator on your computer 
 Clone the repository:
->git clone https://github.com/matrixlnrs/patterns-generator
-
->cd patterns-generator
-
+```
+git clone https://github.com/matrixlnrs/patterns-generator`
+cd patterns-generator
+```
 Run the Flask server:
->python3 app.py
-
+`python3 app.py`
 Open your browser and go to:
->http://127.0.0.1:5000/
+`http://127.0.0.1:5000/`
 
 I've decided to do this project exclusively in English, as it is during our semester abroad.
