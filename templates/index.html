@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Geometric Pattern Generator</title>
+    <title>Build Your Pattern</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <script defer src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
+    <img src="{{ url_for('static', filename='background.jpg') }}" class="background-img" alt="fond" />
     <div class="container">
-        <h1>Geometric Pattern Generator</h1>
+        <h1>Pattern Generator</h1>
 
         {% if error %}
             <div class="error">{{ error }}</div>
         {% endif %}
 
         <form id="patternForm" method="POST" action="/index">
-            <label for="sides">Number of sides (0 for spiral):</label>
-            <input type="number" id="sides" name="sides" min="0" max="100" required />
-
-            <label for="reps">Number of repetitions:</label>
-            <input type="number" id="reps" name="reps" min="1" max="100" required />
-
-            <label for="size">Size (1=Small, 2=Medium, 3=Large):</label>
-            <select id="size" name="size" required>
-                <option value="1">Small</option>
-                <option value="2" selected>Medium</option>
-                <option value="3">Large</option>
-            </select>
-
-            <label for="rot">Rotation angle (degrees):</label>
-            <input type="number" id="rot" name="rot" min="0" max="360" required />
-
-            <label for="color">Color:</label>
-            <input type="text" id="color" name="color" placeholder="e.g. red, blue, black" required />
-
-            <button type="submit">Generate Pattern</button>
+            <div>
+                <label for="sides">Number of sides (0 for spiral):</label>
+                <input type="number" id="sides" name="sides" min="0" max="100" required />
+            </div>
+        
+            <div>
+                <label for="reps">Number of repetitions:</label>
+                <input type="number" id="reps" name="reps" min="1" max="100" required />
+            </div>
+        
+            <div>
+                <label for="size">Size:</label>
+                <select id="size" name="size" required>
+                    <option value="1" selected>Select your size</option>
+                    <option value="2">Small</option>
+                    <option value="3">Medium</option>
+                    <option value="4">Large</option>
+                </select>
+            </div>
+        
+            <div>
+                <label for="rot">Rotation angle (degrees):</label>
+                <input type="number" id="rot" name="rot" min="0" max="360" required />
+            </div>
+        
+            <div>
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" placeholder="e.g. red, blue, black" required />
+            </div>
+        
+            <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
+                <button type="submit" name="generate">Generate Pattern</button>
+                <button type="submit" name="mystery">Mystery Pattern</button>
+            </div>
         </form>
+        
 
         <div id="customLoader" class="loader-container hidden">
             <span class="loader"></span>
