@@ -2,6 +2,20 @@ import turtle
 from PIL import Image
 import os
 import sys  # To receive arguments from the command line
+import random
+
+if len(sys.argv) == 2 and sys.argv[1] == "mystery":
+    nb_sides = random.choice([0] + list(range(3, 10)))
+    nb_reps = random.randint(10, 50)
+    size_input = random.choice([1, 2, 3])
+    rot = random.randint(10, 180)
+    color = random.choice(["red", "blue", "green", "purple", "black", "orange", "cyan"])
+else:
+    nb_sides = int(sys.argv[1])
+    nb_reps = int(sys.argv[2])
+    size_input = int(sys.argv[3])
+    rot = int(sys.argv[4])
+    color = sys.argv[5]
 
 # Ask for parameters
 nb_sides = int(sys.argv[1])
