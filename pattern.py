@@ -1,40 +1,19 @@
 import turtle
 from PIL import Image
 import os
-import sys  # To receive arguments from the command line
-import random
+import sys
 
-if len(sys.argv) == 2 and sys.argv[1] == "mystery":
-    nb_sides = random.choice([0] + list(range(3, 10)))
-    nb_reps = random.randint(10, 50)
-    size_input = random.choice([1, 2, 3])
-    rot = random.randint(10, 180)
-    color = random.choice(["red", "blue", "green", "purple", "black", "orange", "cyan"])
-else:
-    nb_sides = int(sys.argv[1])
-    nb_reps = int(sys.argv[2])
-    size_input = int(sys.argv[3])
-    rot = int(sys.argv[4])
-    color = sys.argv[5]
+# Retrieve arguments
+pattern_type = sys.argv[1]
+nb_sides = int(sys.argv[2])
+nb_reps = int(sys.argv[3])
+size_input = int(sys.argv[4])
+rot = int(sys.argv[5])
+color = sys.argv[6]
 
-# Ask for parameters
-nb_sides = int(sys.argv[1])
-nb_reps = int(sys.argv[2])
-size_input = int(sys.argv[3])
-rot = int(sys.argv[4])
-color = sys.argv[5]
+size = {1: 50, 2: 125, 3: 200}.get(size_input, 100)
 
-# Convert size into pixels
-if size_input == 1:
-    size = 50
-elif size_input == 2:
-    size = 125
-elif size_input == 3:
-    size = 200
-else:
-    size = 100
-
-# Setup turtle
+# Initialize turtle graphics
 t = turtle.Turtle()
 t.hideturtle()
 t.color(color)
@@ -42,14 +21,16 @@ t.speed(0)
 screen = turtle.Screen()
 screen.bgcolor("white")
 
-# Polygon pattern drawing
+# Drawing functions
+
+# Draw a polygon with a certain number of sides
 def draw_polygon(size, sides):
     angle = 360 / sides
     for _ in range(sides):
         t.forward(size)
         t.left(angle)
 
-# Spiral pattern drawing
+# Draw a spiral by increasing the length of each segment incrementally
 def draw_spiral(size, repetitions, angle, increment):
     length = size
     for _ in range(repetitions):
@@ -57,20 +38,56 @@ def draw_spiral(size, repetitions, angle, increment):
         t.left(angle)
         length += increment
 
-# Main drawing
-if nb_sides == 0:
+# Draw multiple 5-pointed stars
+def draw_star(size, repetitions, rot_angle):
+    for _ in range(repetitions):
+        for _ in range(5):
+            t.forward(size)
+            t.right(144)  # Star angle
+        t.left(rot_angle)
+
+# Draw recursively a Koch fractal curve at the given recursion level
+def draw_fractal(length, level):
+    if level == 0:
+        t.forward(length)
+    else:
+        draw_fractal(length / 3, level - 1)
+        t.left(60)
+        draw_fractal(length / 3, level - 1)
+        t.right(120)
+        draw_fractal(length / 3, level - 1)
+        t.left(60)
+        draw_fractal(length / 3, level - 1)
+
+# Draw circles
+def draw_circles(size, repetitions, rot_angle):
+    for _ in range(repetitions):
+        t.circle(size)
+        t.left(rot_angle)
+
+# Execute the appropriate drawing function based on pattern_type
+if pattern_type == "spiral":
     draw_spiral(size, nb_reps, rot, increment=5)
-else:
+elif pattern_type == "polygon":
     for _ in range(nb_reps):
         draw_polygon(size, nb_sides)
         t.left(rot)
+elif pattern_type == "star":
+    draw_star(size, nb_reps, rot)
+elif pattern_type == "fractal":
+    t.penup()
+    t.goto(-200, 0)
+    t.pendown()
+    draw_fractal(size, nb_reps)
+elif pattern_type == "circle":
+    draw_circles(size, nb_reps, rot)
 
-# Save image as EPS
+# Save the turtle drawing as a PNG file
 canvas = turtle.getcanvas()
 canvas.postscript(file="pattern.eps")
-turtle.bye()
+turtle.bye()  # Close the turtle graphics window
 
-# Convert EPS to PNG
+# Convert EPS file to PNG and save it in the static directory
 img = Image.open("pattern.eps")
 img.save("static/pattern.png", "PNG")
-os.remove("pattern.eps")    # Delete the EPS file to keep only the PNG
+os.remove("pattern.eps")  # Clean up the temporary EPS file
