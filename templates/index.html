@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Build Your Pattern</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pattern Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
+
 <body>
-    <img src="{{ url_for('static', filename='background.jpg') }}" class="background-img" alt="fond" />
-    <div class="container">
-        <h1>Pattern Generator</h1>
+  <!-- Background image -->
+  <img src="{{ url_for('static', filename='background.jpg') }}" class="background-img" alt="background" />
 
-        {% if error %}
-            <div class="error">{{ error }}</div>
-        {% endif %}
+  <div class="container">
+    <h1>Pattern Generator</h1>
 
-        <form id="patternForm" method="POST" action="/index">
-            <div>
-                <label for="sides">Number of sides (0 for spiral):</label>
-                <input type="number" id="sides" name="sides" min="0" max="100" required />
-            </div>
-        
-            <div>
-                <label for="reps">Number of repetitions:</label>
-                <input type="number" id="reps" name="reps" min="1" max="100" required />
-            </div>
-        
-            <div>
-                <label for="size">Size:</label>
-                <select id="size" name="size" required>
-                    <option value="1" selected>Select your size</option>
-                    <option value="2">Small</option>
-                    <option value="3">Medium</option>
-                    <option value="4">Large</option>
-                </select>
-            </div>
-        
-            <div>
-                <label for="rot">Rotation angle (degrees):</label>
-                <input type="number" id="rot" name="rot" min="0" max="360" required />
-            </div>
-        
-            <div>
-                <label for="color">Color:</label>
-                <input type="text" id="color" name="color" placeholder="e.g. red, blue, black" required />
-            </div>
-        
-            <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
-                <button type="submit" name="action" value="generate">Generate Pattern</button>
-                <button type="submit" name="action" value="mystery">Mystery Pattern</button>
-            </div>
-        </form>
-        
-        <div id="customLoader" class="loader-container hidden">
-            <span class="loader"></span>
-        </div>        
+    <!-- Display error if exists -->
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
 
-        {% if image_generated %}
-        <div class="image-container">
-            <h2>Generated Pattern</h2>
-            <img src="{{ url_for('static', filename='pattern.png') }}" alt="Generated Pattern" />
-        </div>
-        {% endif %}
-    </div>
+    <!-- Pattern generation form -->
+    <form method="POST" action="/index">
+      <div>
+        <label for="pattern_type">Pattern Type:</label>
+        <select id="pattern_type" name="pattern_type" required>
+          <option value="spiral">Spiral</option>
+          <option value="polygon">Polygon</option>
+          <option value="star">Star</option>
+          <option value="fractal">Fractal</option>
+          <option value="circle">Circle</option>
+        </select>
+      </div>
+
+      <div id="sides-container">
+        <label for="sides">Number of sides:</label>
+        <input type="number" id="sides" name="sides" min="3" max="12" value="5" />
+      </div>
+
+      <div>
+        <label for="reps">Number of repetitions:</label>
+        <input type="number" id="reps" name="reps" min="1" max="100" value="20" required />
+      </div>
+
+      <div>
+        <label for="size">Size:</label>
+        <select id="size" name="size" required>
+          <option value="1">Small</option>
+          <option value="2" selected>Medium</option>
+          <option value="3">Large</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="rot">Rotation angle (degrees):</label>
+        <input type="number" id="rot" name="rot" min="0" max="360" value="30" required />
+      </div>
+
+      <div>
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" value="black" required />
+      </div>
+
+      <div class="button-group">
+        <button type="submit" name="action" value="generate" class="btn"><span>Generate Pattern</span></button>
+        <button type="submit" name="action" value="mystery" class="btn"><span>Mystery Pattern</span></button>
+      </div>
+    </form>
+
+    <!-- Generated pattern -->
+    {% if image_generated %}
+      <div class="image-container">
+        <h2>Generated Pattern</h2>
+        <img src="{{ url_for('static', filename='pattern.png') }}" alt="Generated Pattern" />
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Loader -->
+  <div class="loader-container hidden">
+    <span class="loader"></span>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </body>
 </html>

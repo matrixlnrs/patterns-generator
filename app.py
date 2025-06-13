@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return redirect(url_for('index'))
+    return render_template('landing.html')  # ✅ Affiche landing.html directement
 
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -48,7 +48,6 @@ def index():
             return render_template('index.html', image_generated=True)
 
         except Exception as e:
-            
             return render_template('index.html', error=str(e))
 
     return render_template('index.html', image_generated=False)

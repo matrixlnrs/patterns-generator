@@ -1,157 +1,203 @@
 body {
-    font-family: 'Helvetica Neue', sans-serif;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-}
-
-.background-img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    opacity: 1; /* transparence directe de l’image */
-    z-index: -1;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 20px;
+  position: relative;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 .container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    text-align: center;
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.background-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 1;
+  z-index: -1;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
 label {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: #333;
-    margin-bottom: 4px;
-    display: block;
-    text-align: center;
-    width: 100%;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+  text-align: center;
+  width: 100%;
 }
 
 input, select {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    transition: border 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border 0.2s ease, transform 0.2s ease;
 }
 
 input:focus, select:focus {
-    border-color: #FF3D00;
-    outline: none;
-}
-
-button {
-    padding: 12px 20px;
-    font-size: 1em;
-    background-color: #FF3D00;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    min-width: 150px;
-}
-
-button:hover {
-    background-color: #b02900;
+  border-color: #FF3D00;
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(255, 61, 0, 0.6);
+  outline: none;
 }
 
 .error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-radius: 6px;
-    padding: 12px;
-    margin: 12px auto;
-    max-width: 400px;
-    font-weight: 500;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 12px auto;
+  max-width: 400px;
+  font-weight: 500;
 }
 
 .image-container {
-    margin-top: 30px;
-    text-align: center;
+  margin-top: 30px;
+  text-align: center;
 }
 
 .image-container img {
-    max-width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.05em;
+}
+
+.btn span {
+  color: #fff;
+  background-color: #FF3D00;
+  padding: 12px 24px;
+  display: inline-block;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s;
+}
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  background: transparent;
+  z-index: 0;
+  width: 10%;
+  height: 25%;
+  transition: 0.35s;
+}
+
+.btn::before {
+  top: 0;
+  left: 0;
+  border-left: 1px solid #333;
+  border-top: 1px solid #333;
+}
+
+.btn::after {
+  bottom: 0;
+  right: 0;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.btn:hover::before,
+.btn:hover::after {
+  width: 99%;
+  height: 98%;
 }
 
 .loader-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
 .loader {
-    position: relative;
-    transform: rotateZ(45deg);
-    perspective: 1000px;
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    color: #fff;
+  position: relative;
+  transform: rotateZ(45deg);
+  perspective: 1000px;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  color: #fff;
 }
+
 .loader:before,
 .loader:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: inherit;
-    height: inherit;
-    border-radius: 50%;
-    transform: rotateX(70deg);
-    animation: 1s spin linear infinite;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  transform: rotateX(70deg);
+  animation: 1s spin linear infinite;
 }
+
 .loader:after {
-    color: #FF3D00;
-    transform: rotateY(70deg);
-    animation-delay: .4s;
+  color: #FF3D00;
+  transform: rotateY(70deg);
+  animation-delay: .4s;
 }
 
 @keyframes spin {
-    0%, 100% { box-shadow: .2em 0px 0 0px currentcolor; }
-    12%     { box-shadow: .2em .2em 0 0 currentcolor; }
-    25%     { box-shadow: 0 .2em 0 0px currentcolor; }
-    37%     { box-shadow: -.2em .2em 0 0 currentcolor; }
-    50%     { box-shadow: -.2em 0 0 0 currentcolor; }
-    62%     { box-shadow: -.2em -.2em 0 0 currentcolor; }
-    75%     { box-shadow: 0px -.2em 0 0 currentcolor; }
-    87%     { box-shadow: .2em -.2em 0 0 currentcolor; }
+  0%, 100% { box-shadow: .2em 0 0 0 currentcolor; }
+  12%      { box-shadow: .2em .2em 0 0 currentcolor; }
+  25%      { box-shadow: 0 .2em 0 0 currentcolor; }
+  37%      { box-shadow: -.2em .2em 0 0 currentcolor; }
+  50%      { box-shadow: -.2em 0 0 0 currentcolor; }
+  62%      { box-shadow: -.2em -.2em 0 0 currentcolor; }
+  75%      { box-shadow: 0 -.2em 0 0 currentcolor; }
+  87%      { box-shadow: .2em -.2em 0 0 currentcolor; }
 }
 
-.hidden {
-    display: none !important;
+.hidden{
+    display: none;
 }
