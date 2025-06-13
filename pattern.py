@@ -60,6 +60,12 @@ def draw_fractal(length, level):
         t.left(60)
         draw_fractal(length / 3, level - 1)
 
+# Draw a circle
+def draw_circle(radius, repetitions, rot_angle):
+    for _ in range(repetitions):
+        t.circle(radius)
+        t.left(rot_angle)
+
 # Draw selected pattern
 if pattern_type == "spiral":
     draw_spiral(size, nb_reps, rot, increment=5)
@@ -74,6 +80,8 @@ elif pattern_type == "fractal":
     t.goto(-200, 0)
     t.pendown()
     draw_fractal(size, nb_reps)
+elif pattern_type == "circle":
+    draw_circle(size, nb_reps, rot)
 
 # Save the drawing as PNG file
 canvas = turtle.getcanvas()
