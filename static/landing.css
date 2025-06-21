@@ -20,7 +20,7 @@ body {
 }
 
 /* animate each word sliding in from the left */
-.line{
+.line {
     animation: slideIn 0.8s ease forwards;
 }
 
@@ -87,8 +87,8 @@ body {
     width: 400px;
     height: auto;
     z-index: 10;
-  }
-  
+}
+
 /* breathing animation effect for the button */
 @keyframes pulse {
     0% { transform: scale(1); opacity: 1; }
@@ -99,11 +99,50 @@ body {
 /* brings the text in smoothly from far left */
 @keyframes slideIn {
     0% {
-      opacity: 0;
-      transform: translateX(-1000px);
+        opacity: 0;
+        transform: translateX(-1000px);
     }
     100% {
-      opacity: 1;
-      transform: translateX(0);
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    /* hide image */
+    .corner-img {
+        display: none;
+    }
+
+    /* adjust margins to keep stepped layout but tighter */
+    .build {
+        margin-left: 5vw;
+    }
+
+    .your {
+        margin-left: 10vw;
+    }
+
+    .pattern {
+        margin-left: 15vw;
+    }
+
+    .circle-btn {
+        bottom: 60px;
+        right: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* shrink text only on very small screens */
+    .build, .your, .pattern {
+        font-size: 11vw;
+    }
+
+    .circle-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 10px;
+        line-height: 80px;
     }
 }
