@@ -8,18 +8,18 @@
 </head>
 
 <body>
-  <!-- Background image -->
+  <!-- background image -->
   <img src="{{ url_for('static', filename='background.jpg') }}" class="background-img" alt="background" />
 
   <div class="container">
     <h1>Pattern Generator</h1>
 
-    <!-- Display error if exists -->
+    <!-- display error if exists -->
     {% if error %}
       <div class="error">{{ error }}</div>
     {% endif %}
 
-    <!-- Pattern generation form -->
+    <!-- pattern generation form -->
     <form method="POST" action="/index">
       <div>
         <label for="pattern_type">Pattern Type:</label>
@@ -39,7 +39,7 @@
 
       <div>
         <label for="reps">Number of repetitions:</label>
-        <input type="number" id="reps" name="reps" min="1" max="100" value="20" required />
+        <input type="number" id="reps" name="reps" min="1" max="100" value="5" required />
       </div>
 
       <div>
@@ -67,7 +67,7 @@
       </div>
     </form>
 
-    <!-- Generated pattern -->
+    <!-- generated pattern -->
     {% if image_generated %}
       <div class="image-container">
         <h2>Generated Pattern</h2>
@@ -76,7 +76,7 @@
     {% endif %}
   </div>
 
-  <!-- Loader -->
+  <!-- loader -->
   <div class="loader-container hidden">
     <span class="loader"></span>
   </div>

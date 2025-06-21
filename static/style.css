@@ -5,11 +5,13 @@ body {
   position: relative;
 }
 
+/* page title styling */
 h1 {
   text-align: center;
   color: #333;
 }
 
+/* wrapper for the form and its contents */
 .container {
   max-width: 600px;
   margin: 40px auto;
@@ -20,6 +22,7 @@ h1 {
   text-align: center;
 }
 
+/* background image setup */
 .background-img {
   position: fixed;
   top: 0;
@@ -31,6 +34,7 @@ h1 {
   z-index: -1;
 }
 
+/* simple form layout */
 form {
   display: flex;
   flex-direction: column;
@@ -48,6 +52,7 @@ label {
   width: 100%;
 }
 
+/* input and select share the same base styles */
 input, select {
   width: 100%;
   max-width: 300px;
@@ -58,6 +63,7 @@ input, select {
   transition: border 0.2s ease, transform 0.2s ease;
 }
 
+/* highlight active input field */
 input:focus, select:focus {
   border-color: #FF3D00;
   transform: scale(1.03);
@@ -75,6 +81,7 @@ input:focus, select:focus {
   font-weight: 500;
 }
 
+/* displaying uploaded or preview images */
 .image-container {
   margin-top: 30px;
   text-align: center;
@@ -86,6 +93,7 @@ input:focus, select:focus {
   border-radius: 4px;
 }
 
+/* group for multiple buttons */
 .button-group {
   display: flex;
   gap: 12px;
@@ -144,13 +152,14 @@ input:focus, select:focus {
   height: 98%;
 }
 
+/* fullscreen loader container */
 .loader-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.75); /* darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,6 +176,7 @@ input:focus, select:focus {
   color: #fff;
 }
 
+/* loader visual animation setup */
 .loader:before,
 .loader:after {
   content: '';
@@ -187,6 +197,7 @@ input:focus, select:focus {
   animation-delay: .4s;
 }
 
+/* creates rotating illusion using box shadows */
 @keyframes spin {
   0%, 100% { box-shadow: .2em 0 0 0 currentcolor; }
   12%      { box-shadow: .2em .2em 0 0 currentcolor; }
@@ -198,6 +209,7 @@ input:focus, select:focus {
   87%      { box-shadow: .2em -.2em 0 0 currentcolor; }
 }
 
+/* utility class to hide any element */
 .hidden{
     display: none;
 }

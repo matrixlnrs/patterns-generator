@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const MINIMUM_DISPLAY_TIME = 500;
   let clickedButton = null;
 
-  // Manage the display of the number of sides
+  // manage the display of the number of sides
   function updateSidesVisibility() {
     if (patternTypeSelect.value === "polygon") {
       sidesContainer.style.display = "block";
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSidesVisibility();
   }
 
-  // Detect which button is clicked
+  // detect which button is clicked
   form.querySelectorAll('button[type="submit"]').forEach(button => {
     button.addEventListener('click', () => {
       clickedButton = button;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
       form.appendChild(hiddenInput);
     }
 
-    // Force a minimum delay for smooth display of the loader
+    // force a minimum delay for smooth display of the loader
     const elapsed = Date.now() - startTime;
     const remainingTime = MINIMUM_DISPLAY_TIME - elapsed;
 

@@ -14,7 +14,7 @@ def index():
         action = request.form.get('action')
 
         if action == 'mystery':
-            # Random parameters for mystery
+            # random parameters for mystery
             pattern_type = random.choice(['spiral', 'polygon', 'star', 'fractal'])
             nb_sides = random.randint(3, 8) if pattern_type == 'polygon' else 0
             nb_reps = random.randint(5, 50)
@@ -22,7 +22,7 @@ def index():
             rot = random.randint(5, 180)
             color = random.choice(['red', 'blue', 'green', 'black', 'orange', 'purple'])
         else:
-            # User parameters
+            # user parameters
             pattern_type = request.form.get('pattern_type', type=str)
             nb_sides = request.form.get('sides', type=int) if pattern_type == 'polygon' else 0
             nb_reps = request.form.get('reps', type=int)
@@ -43,13 +43,13 @@ def index():
                 ],
                 check=True
             )
-            # Redirect after generation to avoid forced POST reload
+            # redirect after generation to avoid forced POST reload
             return redirect(url_for('index', generated=1))
 
         except Exception as e:
             return render_template('index.html', error=str(e))
 
-    # If GET, or redirect after success display with generated image if needed
+    # if GET, or redirect after success display with generated image if needed
     generated = request.args.get('generated', default=0, type=int)
     return render_template('index.html', image_generated=bool(generated))
 
