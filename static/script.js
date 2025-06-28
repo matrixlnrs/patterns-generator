@@ -28,8 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
     const selectedPattern = patternTypeSelect.value;
     const repetitions = parseInt(repsInput.value, 10);
 
@@ -39,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    e.preventDefault();
 
     loaderContainer.classList.remove('hidden');
     const startTime = Date.now();

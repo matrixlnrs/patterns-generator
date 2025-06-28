@@ -2,7 +2,7 @@ import turtle
 from PIL import Image
 import os
 import sys
-from datetime import datetimea
+from datetime import datetime
 
 # retrieve command-line arguments
 pattern_type = sys.argv[1]
