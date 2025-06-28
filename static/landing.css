@@ -1,21 +1,15 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #111;
-    color: white;
+    background-color: #114B5F;
+    color: #f0f0f0;
     font-family: 'Helvetica Neue', sans-serif;
     height: 100vh;
-    overflow: hidden;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 /* main wrapper for the text block */
 .container {
-    position: relative;
     width: 100%;
-    text-align: left;
     padding: 5%;
 }
 
@@ -30,6 +24,7 @@ body {
     font-size: 9.2vw;
     line-height: 0.5;
     font-weight: bold;
+    color: #f0f0f0;
 }
 
 .your {
@@ -37,6 +32,7 @@ body {
     font-size: 9.2vw;
     line-height: 0.5;
     font-weight: bold;
+    color: #f0f0f0;
 }
 
 .pattern {
@@ -44,6 +40,7 @@ body {
     font-size: 9.2vw;
     line-height: 0.5;
     font-weight: bold;
+    color: #f0f0f0;
 }
 
 /* circular button at bottom-right */
@@ -53,12 +50,12 @@ body {
     right: 160px;
     width: 100px;
     height: 100px;
-    border: 1px solid white;
+    border: 1px solid #f0f0f0;
     border-radius: 50%;
     text-align: center;
     line-height: 100px;
     font-size: 14px;
-    color: white;
+    color: #f0f0f0;
     text-decoration: none;
     transition: all 0.3s ease;
     display: flex;
@@ -74,7 +71,7 @@ body {
 
 /* reverse colors + slight zoom */
 .circle-btn:hover {
-    background-color: white;
+    background-color: #f0f0f0;
     color: black;
     transform: scale(1.1);
 }
@@ -114,7 +111,6 @@ body {
         display: none;
     }
 
-    /* adjust margins to keep stepped layout but tighter */
     .build {
         margin-left: 5vw;
     }

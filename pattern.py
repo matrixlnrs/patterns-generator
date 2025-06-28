@@ -2,6 +2,7 @@ import turtle
 from PIL import Image
 import os
 import sys
+from datetime import datetimea
 
 # retrieve command-line arguments
 pattern_type = sys.argv[1]
@@ -94,12 +95,25 @@ elif pattern_type == "fractal":
 elif pattern_type == "circle":
     draw_circle(size, nb_reps, rot)
 
-# save the drawing as PNG file
+# create filename based on type and timestamp
+base_filename = f"{pattern_type}"
+counter = 0
+filename = f"{base_filename}.png"
+
+# ensure unique filename
+while os.path.exists(f"static/{filename}"):
+    counter += 1
+    filename = f"{base_filename}{counter}.png"
+
+# save as .eps first, then convert
 canvas = turtle.getcanvas()
 canvas.postscript(file="pattern.eps")
 turtle.bye()
 
-# convert EPS file to PNG and save in 'static' folder
 img = Image.open("pattern.eps")
-img.save("static/pattern.png", "PNG")
+img.save(f"static/{filename}", "PNG")
 os.remove("pattern.eps")
+
+# write filename to a temp file so Flask can read it
+with open("last_generated.txt", "w") as f:
+    f.write(filename)
