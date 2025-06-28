@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const repetitions = parseInt(repsInput.value, 10);
 
     if (selectedPattern === "fractal" && repetitions > 7) {
-      alert("WARNING: More than 6 repetitions on a fractal are not allowed due to the fact that it might take too long. Please choose 7 or fewer repetitions");
+      e.preventDefault();
+      alert("WARNING: More than 6 repetitions on a fractal are not allowed due to the fact that it will take too long. Please choose 7 or fewer repetitions");
 
       return;
     }
 
-    e.preventDefault();
 
     loaderContainer.classList.remove('hidden');
     const startTime = Date.now();
