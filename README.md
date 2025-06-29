@@ -1,6 +1,6 @@
 # Geometric Pattern Generator
 
-This project is due on the 30th of June and is worth 5 ECTS. It was completed the 21th of June.
+This project is due on the 30th of June and is worth 5 ECTS. It was firstly finished on the 21th of June, but, improvement where made until the 29th of June.
 It replaces one of our courses as part of our 4th-semester mobility program.
 
 Objective: Build an **interactive web application** that generates **geometric patterns** based on parameters entered by the user.
@@ -15,6 +15,7 @@ Objective: Build an **interactive web application** that generates **geometric p
     - Rotation angle
     - Pattern color
 - Display of the result as a generated PNG image
+- History of all the previously generated image
 - Responsive design
 
 ## To run the pattern generator on your computer 
