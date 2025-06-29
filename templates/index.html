@@ -6,16 +6,9 @@
   <title>Pattern Generator</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
-
 <body>
   <div class="container">
     <h1>Pattern Generator</h1>
-
-    <!-- display error if exists -->
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
-
     <!-- pattern generation form -->
     <form method="POST" action="/index">
       <div>
@@ -72,9 +65,23 @@
         <img src="{{ url_for('static', filename=image_filename) }}" alt="Generated pattern">
       </div>
     {% endif %}
+
+    <!-- history button -->
+    <div id="history-btn-container" style="position: absolute; top: 10px; right: 10px;">
+      <button id="open-history-btn" class="btnH">History</button>
+    </div>
+    
   </div>
 
-  <!-- loader -->
+  <!-- gallery as a form of popup (avoid a new html page) -->
+  <div id="history-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>History:</h2>
+      <ul id="history-list"></ul>
+    </div>
+  </div>
+
   <div class="loader-container hidden">
     <span class="loader"></span>
   </div>

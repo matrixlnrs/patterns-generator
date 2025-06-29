@@ -1,26 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // select main DOM elements
   const form = document.querySelector('form');
   const loaderContainer = document.querySelector('.loader-container');
-  const patternTypeSelect = document.getElementById("pattern_type");
-  const repsInput = document.getElementById("reps");
-  const sidesContainer = document.getElementById("sides-container");
+  const patternTypeSelect = document.getElementById('pattern_type');
+  const repsInput = document.getElementById('reps');
+  const sidesContainer = document.getElementById('sides-container');
+  const rotInput = document.getElementById('rot');
+  const rotValueDisplay = document.getElementById('rot-value');
 
   const MINIMUM_DISPLAY_TIME = 500;
   let clickedButton = null;
 
+  // show/hide the side parameter input depending on selected pattern type
   function updateSidesVisibility() {
     const pattern = patternTypeSelect.value;
-    if (pattern === "polygon") {
-      sidesContainer.style.display = "block";
-    } else {
-      sidesContainer.style.display = "none";
-    }
+    sidesContainer.style.display = pattern === 'polygon' ? 'block' : 'none';
+
+    patternTypeSelect.addEventListener('change', updateSidesVisibility);
   }
 
-  patternTypeSelect.addEventListener("change", updateSidesVisibility);
-  updateSidesVisibility();
+  // fill the background of the slider based on its value
+  function updateSliderBackground(input) {
+    const val = ((input.value - input.min) / (input.max - input.min)) * 100;
+    input.style.setProperty('--value', `${val}%`);
+  }
+  
+  function initializeRotationSlider() {
+    if (!rotInput || !rotValueDisplay) return;
 
-  // détecter le bouton cliqué
+    rotInput.addEventListener('input', () => {
+      rotValueDisplay.textContent = `${rotInput.value}°`;
+      updateSliderBackground(rotInput);
+    });
+
+    rotValueDisplay.textContent = `${rotInput.value}°`;
+    updateSliderBackground(rotInput);
+  }
+
+  // keep track of which submit button is clicked
   form.querySelectorAll('button[type="submit"]').forEach(button => {
     button.addEventListener('click', () => {
       clickedButton = button;
@@ -28,20 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
     const selectedPattern = patternTypeSelect.value;
     const repetitions = parseInt(repsInput.value, 10);
 
-    if (selectedPattern === "fractal" && repetitions > 7) {
-      e.preventDefault();
-      alert("WARNING: More than 6 repetitions on a fractal are not allowed due to the fact that it will take too long. Please choose 7 or fewer repetitions");
-
+    // prevent too many fractal repetitions
+    if (selectedPattern === 'fractal' && repetitions > 7) {
+      alert("WARNING: More than 7 repetitions on a fractal are not allowed due to long rendering time. Please choose 7 or fewer.");
       return;
     }
-
 
     loaderContainer.classList.remove('hidden');
     const startTime = Date.now();
 
+    // add hidden input to indicate which button triggered the form
     if (clickedButton) {
       const hiddenInput = document.createElement('input');
       hiddenInput.type = 'hidden';
@@ -50,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
       form.appendChild(hiddenInput);
     }
 
+    // ensure loader is visible for at least 500ms
     const elapsed = Date.now() - startTime;
     const remainingTime = MINIMUM_DISPLAY_TIME - elapsed;
 
@@ -57,32 +76,38 @@ document.addEventListener('DOMContentLoaded', function () {
       form.submit();
     }, Math.max(remainingTime, 0));
   });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-  const rotInput = document.getElementById('rot');
-  const rotValueDisplay = document.getElementById('rot-value');
+  // initialize modal for viewing history
+  document.getElementById('open-history-btn').addEventListener('click', () => {
+    const modal = document.getElementById('history-modal');
+    const list = document.getElementById('history-list');
 
-  // mettre à jour la valeur affichée quand on déplace le slider
-  rotInput.addEventListener('input', function () {
-    rotValueDisplay.textContent = `${rotInput.value}°`;
+    fetch('/history')
+      .then(response => response.json())
+      .then(data => {
+        list.innerHTML = '';
+
+        data.forEach(entry => {
+          const li = document.createElement('li');
+          const img = document.createElement('img');
+
+          img.src = entry.image_url;
+          img.alt = 'Generated pattern';
+          img.classList.add('history-img');
+
+          li.appendChild(img);
+          list.appendChild(li);
+        });
+      
+        modal.style.display = 'block';
+      });
   });
 
-  function updateSliderBackground(input) {
-  const val = (input.value - input.min) / (input.max - input.min) * 100;
-  input.style.setProperty('--value', `${val}%`);
-}
-
-  // Pour le rot
-  rotInput.addEventListener('input', function () {
-    rotValueDisplay.textContent = `${rotInput.value}°`;
-    updateSliderBackground(rotInput);
+  // close history modal
+  document.querySelector('.close').addEventListener('click', () => {
+    document.getElementById('history-modal').style.display = 'none';
   });
 
-  // Initialisation au chargement
-  updateSliderBackground(rotInput);
-
-
-  // initialiser au chargement
-  rotValueDisplay.textContent = `${rotInput.value}°`;
+  updateSidesVisibility();
+  initializeRotationSlider();
 });
