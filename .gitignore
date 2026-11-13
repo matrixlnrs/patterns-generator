@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated at runtime
+static/*.png
+!static/painting.png
+last_generated.txt
+pattern.eps

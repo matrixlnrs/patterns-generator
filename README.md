@@ -1,36 +1,57 @@
 # Geometric Pattern Generator
 
-This project is due on the 30th of June and is worth 5 ECTS. It was firstly finished on the 21th of June, but, improvement where made until the 29th of June.
-It replaces one of our courses as part of our 4th-semester mobility program.
+A web app that turns a few parameters into a geometric drawing. Pick a shape, a size, a number of repetitions, a rotation angle and a color. The server draws the pattern with Python's Turtle graphics, converts it to an image and shows it in the browser, along with a history of everything generated in the session.
 
-Objective: Build an **interactive web application** that generates **geometric patterns** based on parameters entered by the user.
+Built during my exchange semester abroad as a 5 ECTS project, written entirely in English.
 
-## Key Features
-- Pattern generation using **Turtle graphics**
-- Web interface built with **Flask**
-- Input fiels for:
-    - Number of sides
-    - Initial size of the shape
-    - Number of repetitions
-    - Rotation angle
-    - Pattern color
-- Display of the result as a generated PNG image
-- History of all the previously generated image
-- Responsive design
+## Features
 
-## To run the pattern generator on your computer 
-Clone the repository:
+- **Five pattern families**: polygon, star, spiral, circle and a recursive **Koch fractal**.
+- **Parameters**: number of sides (polygons), size, repetitions, rotation angle (slider) and color.
+- **Mystery Pattern** button: picks a random family and random parameters.
+- **History** panel listing every generated pattern with its parameters.
+- **Guard rails**: the sides field only appears for polygons, and fractals are capped at 7 levels to keep rendering fast.
+- **Loading state** while the server draws, and a responsive layout with a separate landing page.
+- **Self-cleaning**: generated images are deleted when the server shuts down.
+
+## How it works
+
 ```
-git clone https://github.com/matrixlnrs/patterns-generator`
+Browser form ──POST──► Flask (app.py) ──subprocess──► pattern.py (Turtle)
+                                                           │
+                        PNG in static/ ◄── Pillow ◄── canvas → PostScript
+```
+
+1. `app.py` reads the form, or draws random values for a mystery pattern, and runs `pattern.py` as a separate process with the parameters as arguments.
+2. `pattern.py` draws with Turtle, exports the canvas as PostScript, converts it to PNG with Pillow and gives it a unique file name.
+3. Flask redirects to the result page and adds the image and its parameters to the history, served as JSON at `/history`.
+
+Running the drawing in its own process keeps Turtle's window and global state out of the web server.
+
+## Run it locally
+
+Requirements:
+- Python 3 with Tk (Turtle needs it);
+- Ghostscript, which Pillow uses to read the PostScript export (`brew install ghostscript` on macOS).
+
+```bash
+git clone https://github.com/matrixlnrs/patterns-generator
 cd patterns-generator
-```
-Run the Flask server:
-```
+pip install -r requirements.txt
 python3 app.py
 ```
-Open your browser and go to:
+
+Then open http://127.0.0.1:5000/.
+
+## Project layout
+
 ```
-http://127.0.0.1:5000/
+app.py              Flask routes: landing page, generator, history API, cleanup on exit
+pattern.py          Turtle drawing functions and the PNG export
+templates/          landing page and generator page (Jinja2)
+static/             styles, front-end script (form logic, loader, history modal)
 ```
 
-I've decided to do this project exclusively in English, as it is during our semester abroad.
+## Tech
+
+Python · Flask · Turtle graphics · Pillow · HTML/CSS · JavaScript
